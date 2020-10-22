@@ -6,6 +6,7 @@ import {
   View,
   Text,
   StatusBar,
+  ToastAndroid
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import Tts from 'react-native-tts';
@@ -17,11 +18,13 @@ class App extends Component {
   barcodeRecognized = ({ barcodes }) => {
     barcodes.forEach(barcode => {
       if(barcode.data==='Avijit'){
+        ToastAndroid.show("QR code is valid. Permission Granted to enter..",ToastAndroid.SHORT);
         this.setState({
           barcodeDetected : true,
           validBarcode : true
         });
       }else {
+        ToastAndroid.show("QR code detected. But not valid or time expired..",ToastAndroid.SHORT);
         this.setState({
           barcodeDetected : true,
           validBarcode : false
@@ -35,7 +38,7 @@ class App extends Component {
     }
   }
   render(){
-    Tts.speak('Welcome to our automated parking system..');
+    //Tts.speak('Welcome to our automated parking system..');
     return (
       <>
         <View>
