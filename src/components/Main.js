@@ -61,9 +61,9 @@ class Main extends Component {
 export default Main;
 const styles = StyleSheet.create({
   camera : {
-    width : '100%',
+    width : '90%',
     backgroundColor : "#000000",
-    height :'100%',
+    height :'90%',
     padding : 20
   },
   welcome : {
