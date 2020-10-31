@@ -41,7 +41,7 @@ class Main extends Component {
     //Tts.speak('Welcome to our automated parking system..');
     return (
       <>
-        <View>
+        <View style ={styles.container}>
         <Text style={styles.welcome}>Vehicle Parking Camera</Text>
           <RNCamera
             ref={
@@ -60,12 +60,17 @@ class Main extends Component {
 }
 export default Main;
 const styles = StyleSheet.create({
+  container : {
+    backgroundColor : '#009387',
+    backgroundColor : '#ffffff',
+    height : '100%',
+    width : '100%',
+    padding : '20%'
+  }
+  ,
   camera : {
-    width : '90%',
-    backgroundColor : "#000000",
-    height :'90%',
-    padding : 20
-  },
+    height :'70%',
+    },
   welcome : {
     fontSize : 20,
     textAlign : "center"
