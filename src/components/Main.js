@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {authorize} from './../api/AuthApi';
+import axios from 'axios';
 import {
   SafeAreaView,
   StyleSheet,
@@ -17,19 +19,29 @@ class Main extends Component {
   }
   barcodeRecognized = ({ barcodes }) => {
     barcodes.forEach(barcode => {
-      if(barcode.data==='Avijit'){
-        ToastAndroid.show("QR code is valid. Permission Granted to enter..",ToastAndroid.SHORT);
-        this.setState({
-          barcodeDetected : true,
-          validBarcode : true
-        });
-      }else {
-        ToastAndroid.show("QR code detected. But not valid or time expired..",ToastAndroid.SHORT);
-        this.setState({
-          barcodeDetected : true,
-          validBarcode : false
-        });
-      }
+      var token = barcode.data;
+      let formData = new FormData();
+      formData.append('a','a');
+      axios.post("https://www.finalproject.xyz/vehicle_parking/api/bookings.php?token="+token, formData).then(
+              response=> {
+                  console.log(JSON.stringify(response.data));
+                  if(response.data=='1'){
+                    ToastAndroid.show("QR code is valid. Permission Granted to enter..",ToastAndroid.SHORT);
+                    this.setState({
+                      barcodeDetected : true,
+                      validBarcode : true
+                    });
+                  }else {
+                    ToastAndroid.show("QR code detected. But not valid or time expired..",ToastAndroid.SHORT);
+                    this.setState({
+                      barcodeDetected : true,
+                      validBarcode : false
+                    });
+                  }
+              }
+          ).catch(error=> {
+              console.log(error.message);
+          });
     })
   };
   componentDidUpdate(prevState){
